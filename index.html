@@ -1,0 +1,134 @@
+from textwrap import dedent
+
+html = dedent("""\
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eFootball Tournament Standings</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#050816,#0f172a,#08111f);
+background-size:400% 400%;
+animation:bgMove 15s ease infinite;
+color:#fff;
+padding:20px;
+}
+@keyframes bgMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+h1{
+text-align:center;
+margin-bottom:5px;
+font-size:32px;
+background:linear-gradient(90deg,#00f7ff,#00ff95);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+p{text-align:center;color:#bbb;margin-bottom:25px}
+.group{
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(12px);
+border-radius:18px;
+padding:18px;
+margin-bottom:25px;
+box-shadow:0 0 20px rgba(0,255,255,.15);
+animation:fadeUp .8s ease;
+overflow-x:auto;
+}
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(30px)}
+to{opacity:1;transform:translateY(0)}
+}
+.group h2{margin-bottom:15px}
+table{
+width:100%;
+border-collapse:collapse;
+min-width:650px;
+}
+th{
+padding:12px;
+background:#111827;
+position:sticky;
+top:0;
+}
+td{
+padding:12px;
+text-align:center;
+border-bottom:1px solid rgba(255,255,255,.08);
+transition:.3s;
+}
+tr:hover{
+background:rgba(0,255,255,.08);
+transform:scale(1.01);
+}
+.groupA h2{color:#00ff7f}
+.groupB h2{color:#1ea7ff}
+.groupC h2{color:#ff5050}
+.team{text-align:left;font-weight:bold}
+.points{color:#ffd700;font-weight:bold}
+footer{
+text-align:center;
+margin-top:20px;
+color:#888;
+font-size:14px;
+}
+</style>
+</head>
+<body>
+
+<h1>⚽ eFootball Arena</h1>
+<p>Tournament Standings</p>
+
+<div class="group groupA">
+<h2>🟢 Group A</h2>
+<table>
+<tr><th>Pos</th><th>Team</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr>
+<tr><td>1</td><td class="team">Argentina</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+<tr><td>2</td><td class="team">Bombay</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+<tr><td>3</td><td class="team">Portugal</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+<tr><td>4</td><td class="team">Ollur</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+<tr><td>5</td><td class="team">Bihar</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+</table>
+</div>
+
+<div class="group groupB">
+<h2>🔵 Group B</h2>
+<table>
+<tr><th>Pos</th><th>Team</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr>
+<tr><td>1</td><td class="team">Brazil</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+<tr><td>2</td><td class="team">Canada</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+<tr><td>3</td><td class="team">Al Nassr</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+<tr><td>4</td><td class="team">Chirangara</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+<tr><td>5</td><td class="team">England</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+</table>
+</div>
+
+<div class="group groupC">
+<h2>🔴 Group C</h2>
+<table>
+<tr><th>Pos</th><th>Team</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr>
+<tr><td>1</td><td class="team">India</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+<tr><td>2</td><td class="team">Uzbekistan</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+<tr><td>3</td><td class="team">Barcelona</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+<tr><td>4</td><td class="team">Bangalore</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+<tr><td>5</td><td class="team">Cabo Verde</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+</table>
+</div>
+
+<footer>Designed for Mobile • eFootball Tournament Dashboard</footer>
+
+</body>
+</html>
+""")
+
+path="/mnt/data/eFootball_Tournament_Standings.html"
+with open(path,"w",encoding="utf-8") as f:
+    f.write(html)
+
+print(path)
