@@ -1,134 +1,127 @@
+from pathlib import Path
 from textwrap import dedent
 
-html = dedent("""\
-<!DOCTYPE html>
+html = dedent("""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>eFootball Tournament Standings</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>eFootball Tournament Dashboard</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#050816,#0f172a,#08111f);
-background-size:400% 400%;
-animation:bgMove 15s ease infinite;
-color:#fff;
-padding:20px;
-}
-@keyframes bgMove{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
-}
-h1{
-text-align:center;
-margin-bottom:5px;
-font-size:32px;
-background:linear-gradient(90deg,#00f7ff,#00ff95);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-p{text-align:center;color:#bbb;margin-bottom:25px}
-.group{
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(12px);
-border-radius:18px;
-padding:18px;
-margin-bottom:25px;
-box-shadow:0 0 20px rgba(0,255,255,.15);
-animation:fadeUp .8s ease;
-overflow-x:auto;
-}
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(30px)}
-to{opacity:1;transform:translateY(0)}
-}
-.group h2{margin-bottom:15px}
-table{
-width:100%;
-border-collapse:collapse;
-min-width:650px;
-}
-th{
-padding:12px;
-background:#111827;
-position:sticky;
-top:0;
-}
-td{
-padding:12px;
-text-align:center;
-border-bottom:1px solid rgba(255,255,255,.08);
-transition:.3s;
-}
-tr:hover{
-background:rgba(0,255,255,.08);
-transform:scale(1.01);
-}
-.groupA h2{color:#00ff7f}
-.groupB h2{color:#1ea7ff}
-.groupC h2{color:#ff5050}
-.team{text-align:left;font-weight:bold}
-.points{color:#ffd700;font-weight:bold}
-footer{
-text-align:center;
-margin-top:20px;
-color:#888;
-font-size:14px;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#08111f;color:#fff}
+header{padding:20px;text-align:center;background:#0d1b2a;position:sticky;top:0}
+nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:10px}
+nav button{padding:10px 16px;border:none;border-radius:8px;background:#00c8ff;color:#000;font-weight:bold;cursor:pointer}
+section{display:none;padding:20px}
+section.active{display:block}
+.card{background:#12233a;border-radius:14px;padding:16px;margin:20px auto;max-width:900px;box-shadow:0 0 12px rgba(0,255,255,.15)}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid #345;text-align:center}
+th{background:#1d3557}
+.group{margin-top:10px}
+.green h2{color:#00ff88}.blue h2{color:#4cb7ff}.red h2{color:#ff5b5b}
 </style>
+<script>
+function show(id){
+ document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+}
+</script>
 </head>
 <body>
+<header>
+<h1>⚽ eFootball Tournament Dashboard</h1>
+<nav>
+<button onclick="show('standings')">Standings</button>
+<button onclick="show('fixtures')">Fixtures</button>
+</nav>
+</header>
 
-<h1>⚽ eFootball Arena</h1>
-<p>Tournament Standings</p>
-
-<div class="group groupA">
+<section id="standings" class="active">
+<div class="card green">
 <h2>🟢 Group A</h2>
 <table>
 <tr><th>Pos</th><th>Team</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr>
-<tr><td>1</td><td class="team">Argentina</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
-<tr><td>2</td><td class="team">Bombay</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
-<tr><td>3</td><td class="team">Portugal</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
-<tr><td>4</td><td class="team">Ollur</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
-<tr><td>5</td><td class="team">Bihar</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+<tr><td>1</td><td>Argentina</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>2</td><td>Mumbai</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>3</td><td>Portugal</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>4</td><td>Ollur</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>5</td><td>Bihar</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 </table>
 </div>
 
-<div class="group groupB">
+<div class="card blue">
 <h2>🔵 Group B</h2>
 <table>
 <tr><th>Pos</th><th>Team</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr>
-<tr><td>1</td><td class="team">Brazil</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
-<tr><td>2</td><td class="team">Canada</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
-<tr><td>3</td><td class="team">Al Nassr</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
-<tr><td>4</td><td class="team">Chirangara</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
-<tr><td>5</td><td class="team">England</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+<tr><td>1</td><td>Brazil</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>2</td><td>Canada</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>3</td><td>Al Nassr</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>4</td><td>Chirangara</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>5</td><td>England</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 </table>
 </div>
 
-<div class="group groupC">
+<div class="card red">
 <h2>🔴 Group C</h2>
 <table>
 <tr><th>Pos</th><th>Team</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr>
-<tr><td>1</td><td class="team">India</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
-<tr><td>2</td><td class="team">Uzbekistan</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
-<tr><td>3</td><td class="team">Barcelona</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
-<tr><td>4</td><td class="team">Bangalore</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
-<tr><td>5</td><td class="team">Cabo Verde</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="points">0</td></tr>
+<tr><td>1</td><td>India</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>2</td><td>Uzbekistan</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>3</td><td>Barcelona</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>4</td><td>Bangalore</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>5</td><td>Cabo Verde</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 </table>
 </div>
+</section>
 
-<footer>Designed for Mobile • eFootball Tournament Dashboard</footer>
+<section id="fixtures">
+<div class="card green"><h2>🟢 Group A Fixtures</h2><table>
+<tr><th>Match</th><th>Fixture</th></tr>
+<tr><td>A1</td><td>Argentina vs Mumbai</td></tr>
+<tr><td>A2</td><td>Portugal vs Ollur</td></tr>
+<tr><td>A3</td><td>Bihar vs Argentina</td></tr>
+<tr><td>A4</td><td>Mumbai vs Portugal</td></tr>
+<tr><td>A5</td><td>Ollur vs Bihar</td></tr>
+<tr><td>A6</td><td>Argentina vs Portugal</td></tr>
+<tr><td>A7</td><td>Mumbai vs Ollur</td></tr>
+<tr><td>A8</td><td>Portugal vs Bihar</td></tr>
+<tr><td>A9</td><td>Argentina vs Ollur</td></tr>
+<tr><td>A10</td><td>Mumbai vs Bihar</td></tr>
+</table></div>
 
+<div class="card blue"><h2>🔵 Group B Fixtures</h2><table>
+<tr><th>Match</th><th>Fixture</th></tr>
+<tr><td>B1</td><td>Brazil vs Canada</td></tr>
+<tr><td>B2</td><td>Al Nassr vs Chirangara</td></tr>
+<tr><td>B3</td><td>England vs Brazil</td></tr>
+<tr><td>B4</td><td>Canada vs Al Nassr</td></tr>
+<tr><td>B5</td><td>Chirangara vs England</td></tr>
+<tr><td>B6</td><td>Brazil vs Al Nassr</td></tr>
+<tr><td>B7</td><td>Canada vs Chirangara</td></tr>
+<tr><td>B8</td><td>Al Nassr vs England</td></tr>
+<tr><td>B9</td><td>Brazil vs Chirangara</td></tr>
+<tr><td>B10</td><td>Canada vs England</td></tr>
+</table></div>
+
+<div class="card red"><h2>🔴 Group C Fixtures</h2><table>
+<tr><th>Match</th><th>Fixture</th></tr>
+<tr><td>C1</td><td>India vs Uzbekistan</td></tr>
+<tr><td>C2</td><td>Barcelona vs Bangalore</td></tr>
+<tr><td>C3</td><td>Cabo Verde vs India</td></tr>
+<tr><td>C4</td><td>Uzbekistan vs Barcelona</td></tr>
+<tr><td>C5</td><td>Bangalore vs Cabo Verde</td></tr>
+<tr><td>C6</td><td>India vs Barcelona</td></tr>
+<tr><td>C7</td><td>Uzbekistan vs Bangalore</td></tr>
+<tr><td>C8</td><td>Barcelona vs Cabo Verde</td></tr>
+<tr><td>C9</td><td>India vs Bangalore</td></tr>
+<tr><td>C10</td><td>Uzbekistan vs Cabo Verde</td></tr>
+</table></div>
+</section>
 </body>
 </html>
 """)
 
-path="/mnt/data/eFootball_Tournament_Standings.html"
-with open(path,"w",encoding="utf-8") as f:
-    f.write(html)
-
+path=Path("/mnt/data/eFootball_Tournament_Dashboard.html")
+path.write_text(html,encoding="utf-8")
 print(path)
